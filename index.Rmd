@@ -33,7 +33,7 @@ felinos <-
 
 # Tabla
 
-```{r}
+```{r tabla, echo=FALSE}
 felinos %>%
   select(species,
          eventDate,
@@ -52,7 +52,7 @@ felinos %>%
       "Latitud"
     ),
     options = list(
-      pageLength = 5,
+      pageLength = 10,
       language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
     )
   )
