@@ -60,4 +60,22 @@ felinos %>%
 
 # Grafico
 
+```{r grafico, message=FALSE, echo=FALSE}
+grafico_felinos <-
+  felinos %>%
+  ggplot(aes(x = species)) +
+  geom_bar() +
+  ggtitle("Cantidad de felinos por especie") +
+  xlab("Especie") +
+  ylab("Cantidad de felinos") +
+  theme_minimal()
+
+ggplotly(grafico_felinos)
+```
+
 # Mapa
+
+```{r mapa, message=FALSE, echo=FALSE}
+
+```
+
