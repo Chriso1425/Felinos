@@ -29,13 +29,22 @@ felinos <-
     ),
     quiet = TRUE
   )
+
+st_crs(felinos) <- 4326
+
+```
+
+```{r}
+provincias <-
+  st_read("C:/Users/gf0604-1/Documents/Felinos/provincias.geojson",
+          quiet = TRUE) %>% st_transform(4326)
 ```
 
 # Tabla
 
 ```{r tabla, echo=FALSE}
 felinos %>%
-  select(species,
+  dplyr::select(species,
          eventDate,
          stateProvince,
          locality,
@@ -61,10 +70,14 @@ felinos %>%
 # Grafico
 
 ```{r grafico, message=FALSE, echo=FALSE}
+felinos %>%
+  count(species)
+
 grafico_felinos <-
   felinos %>%
-  ggplot(aes(x = species)) +
-  geom_bar() +
+  count(species) %>%
+  ggplot(aes(x = reorder(species, -n), y = n)) +
+  geom_bar(stat = "identity") +
   ggtitle("Cantidad de felinos por especie") +
   xlab("Especie") +
   ylab("Cantidad de felinos") +
@@ -76,6 +89,21 @@ ggplotly(grafico_felinos)
 # Mapa
 
 ```{r mapa, message=FALSE, echo=FALSE}
-
+leaflet() %>%
+  addTiles() %>% 
+  # addPolygons( 
+  #   data = provincias,
+  #   color = "black",
+  #   fillColor = "transparent",
+  #   stroke = TRUE,
+  #   weight = 1.0,
+  # ) %>%
+  addCircleMarkers( 
+    data = felinos,
+    stroke = F,
+    radius = 4,
+    fillColor = 'blue',
+    fillOpacity = 1
+  )
 ```
 
